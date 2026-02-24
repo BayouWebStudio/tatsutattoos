@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TATSU - Anime & Pop Culture Tattoos | Houston, TX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a0f2e 100%);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ec4899;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star:nth-child(2n) {
+            background: #7c3aed;
+            animation-delay: 1s;
+        }
+
+        .star:nth-child(3n) {
+            background: #00ffff;
+            animation-delay: 2s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #7c3aed, #ec4899, #00ffff, #7c3aed);
+            background-size: 400%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            letter-spacing: -0.02em;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: #ec4899;
+            margin: 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero .location {
+            font-size: 1.3rem;
+            color: #7c3aed;
+            font-weight: 500;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '⬇';
+            font-size: 2rem;
+            color: #ec4899;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #7c3aed, #ec4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #ec4899;
+            font-weight: 600;
+        }
+
+        .award {
+            display: inline-block;
+            background: linear-gradient(45deg, #7c3aed, #ec4899);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin: 20px 0;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(124, 58, 237, 0.5); }
+            to { box-shadow: 0 0 30px rgba(236, 72, 153, 0.8); }
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(124, 58, 237, 0.8), rgba(236, 72, 153, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .instagram-link {
+            text-align: center;
+        }
+
+        .instagram-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #7c3aed, #ec4899);
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(124, 58, 237, 0.1);
+            border: 2px solid #7c3aed;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            background: rgba(236, 72, 153, 0.1);
+            border-color: #ec4899;
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #ec4899;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Booking Section */
+        .booking {
+            text-align: center;
+            background: rgba(15, 15, 26, 0.8);
+            border-radius: 30px;
+            padding: 60px 40px;
+        }
+
+        .booking h2 {
+            margin-bottom: 30px;
+        }
+
+        .booking p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .location-info {
+            background: rgba(124, 58, 237, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ec4899, #7c3aed);
+            color: white;
+            text-decoration: none;
+            padding: 25px 50px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px solid #7c3aed;
+            background: rgba(15, 15, 26, 0.9);
+        }
+
+        footer p {
+            color: #7c3aed;
+            font-weight: 600;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 8rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>TATSU</h1>
+            <div class="subtitle">Anime • Video Game • Pop Culture Tattoos</div>
+            <div class="location">Houston, TX • Tattoo Temple Houston</div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>About Tatsu</h2>
+            <div class="about-content">
+                <p>Houston-based tattoo artist specializing in <span class="highlight">anime, video game, and pop culture tattoos</span>. With 7 years of professional experience, I bring your favorite characters to life in ink.</p>
+                <div class="award">🏆 Art Fusion Contest Winner - Scottsdale 2025</div>
+                <p>From <span class="highlight">Pokémon Pikachu and Eevee</span> to <span class="highlight">anime characters and Japanese-inspired designs</span>, I create vibrant, detailed tattoos that celebrate the fandoms you love.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio">
+        <div class="container">
+            <h2>Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="img/portfolio_1.jpg" alt="Tatsu's Tattoo Work 1">
+                    <div class="portfolio-overlay">Anime Mastery</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/portfolio_2.jpg" alt="Tatsu's Tattoo Work 2">
+                    <div class="portfolio-overlay">Gaming Culture</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/portfolio_3.jpg" alt="Tatsu's Tattoo Work 3">
+                    <div class="portfolio-overlay">Pop Culture Art</div>
+                </div>
+            </div>
+            <div class="instagram-link">
+                <a href="https://instagram.com/tatsu.tattoos" target="_blank" class="instagram-btn">
+                    📸 More Work on Instagram @tatsu.tattoos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2>Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🎌 Anime Tattoos</h3>
+                    <p>Detailed anime character portraits and scenes from your favorite series</p>
+                </div>
+                <div class="service-card">
+                    <h3>🎮 Video Game Characters</h3>
+                    <p>Iconic gaming characters brought to life with vibrant colors</p>
+                </div>
+                <div class="service-card">
+                    <h3>🎭 Pop Culture</h3>
+                    <p>Movies, TV shows, and cultural icons in stunning tattoo form</p>
+                </div>
+                <div class="service-card">
+                    <h3>✨ Custom Character Design</h3>
+                    <p>Original designs inspired by your favorite fandoms</p>
+                </div>
+                <div class="service-card">
+                    <h3>🌈 Color Work</h3>
+                    <p>Bold, vibrant colors that make your tattoo pop</p>
+                </div>
+                <div class="service-card">
+                    <h3>⚫ Black & Grey</h3>
+                    <p>Classic monochrome styles with incredible detail</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="book">
+        <div class="container">
+            <div class="booking">
+                <h2>Ready to Get Inked? 🎯</h2>
+                <p>Let's bring your favorite characters to life!</p>
+                <div class="location-info">
+                    <strong>📍 Tattoo Temple Houston</strong><br>
+                    3336 E TC Jester Blvd, Houston, TX
+                </div>
+                <a href="https://instagram.com/tatsu.tattoos" target="_blank" class="book-btn">
+                    📩 DM on Instagram to Book
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Website by Bayou Web Studios</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 50;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize
+        createStars();
+    </script>
+</body>
+</html>
