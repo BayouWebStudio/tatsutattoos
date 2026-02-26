@@ -509,5 +509,41 @@
         // Initialize
         createStars();
     </script>
+
+<!-- Floating Book Now Button -->
+<a href="https://venue.ink/@tatsutattoos" target="_blank" class="floating-book-btn">Book Now</a>
+<style>
+.floating-book-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #fff;
+    color: #000;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 0;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.floating-book-btn:hover {
+    background: #000;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+}
+@media (max-width: 768px) {
+    .floating-book-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.8rem;
+    }
+}
+</style>
 </body>
 </html>
