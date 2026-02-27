@@ -410,22 +410,41 @@
         <div class="container">
             <h2>Portfolio</h2>
             <div class="portfolio-grid">
+                
+                
+                
                 <div class="portfolio-item">
-                    <img src="img/portfolio_1.jpg" alt="Tatsu's Tattoo Work 1">
-                    <div class="portfolio-overlay">Anime Mastery</div>
+                    <img src="img/pikachu.jpg" alt="Pikachu tattoo with manga panel background">
+                    <div class="portfolio-overlay">Pokémon Artwork</div>
                 </div>
                 <div class="portfolio-item">
-                    <img src="img/portfolio_2.jpg" alt="Tatsu's Tattoo Work 2">
-                    <div class="portfolio-overlay">Gaming Culture</div>
+                    <img src="img/kirby-yoshi.jpg" alt="Kirby and Pink Yoshi matching leg tattoos">
+                    <div class="portfolio-overlay">Gaming Duo</div>
                 </div>
                 <div class="portfolio-item">
-                    <img src="img/portfolio_3.jpg" alt="Tatsu's Tattoo Work 3">
-                    <div class="portfolio-overlay">Pop Culture Art</div>
+                    <img src="img/anime-chibi.jpg" alt="Blue-haired anime character chibi ankle tattoo">
+                    <div class="portfolio-overlay">Chibi Style</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/vegeta-manga.jpg" alt="Vegeta manga panel armband tattoo, black and grey">
+                    <div class="portfolio-overlay">Dragon Ball Z</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/cyndaquil.jpg" alt="Cyndaquil Pokemon tattoo, colorful">
+                    <div class="portfolio-overlay">Pokémon Color</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/deadpool-unicorn.jpg" alt="Chibi Deadpool riding unicorn tattoo, colorful">
+                    <div class="portfolio-overlay">Marvel Fun</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/chopper-onepiece.jpg" alt="Chopper from One Piece I am not a Tanuki tattoo">
+                    <div class="portfolio-overlay">One Piece</div>
                 </div>
             </div>
             <div class="instagram-link">
-                <a href="https://instagram.com/tatsu.tattoos" target="_blank" class="instagram-btn">
-                    📸 More Work on Instagram @tatsu.tattoos
+                <a href="https://venue.ink/@tatsutattoos" target="_blank" class="instagram-btn">
+                    📅 Book Your Session at venue.ink/@tatsutattoos
                 </a>
             </div>
         </div>
@@ -474,8 +493,8 @@
                     <strong>📍 Tattoo Temple Houston</strong><br>
                     3336 E TC Jester Blvd, Houston, TX
                 </div>
-                <a href="https://instagram.com/tatsu.tattoos" target="_blank" class="book-btn">
-                    📩 DM on Instagram to Book
+                <a href="https://venue.ink/@tatsutattoos" target="_blank" class="book-btn">
+                    📅 Book Now on venue.ink
                 </a>
             </div>
         </div>
@@ -521,5 +540,41 @@
         // Initialize
         createStars();
     </script>
+
+<!-- Floating Book Now Button -->
+<a href="https://venue.ink/@tatsutattoos" target="_blank" class="floating-book-btn">Book Now</a>
+<style>
+.floating-book-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #fff;
+    color: #000;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 0;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.floating-book-btn:hover {
+    background: #000;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+}
+@media (max-width: 768px) {
+    .floating-book-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.8rem;
+    }
+}
+</style>
 </body>
 </html>
