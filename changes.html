@@ -3,435 +3,552 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Changes - TATSU | Houston, TX</title>
+    <title>Request Changes — Tatsu Ink | Bayou Web Studios</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔷</text></svg>">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --card: #222633;
+            --accent: #c8a44e;
+            --accent-glow: rgba(200, 164, 78, 0.15);
+            --text: #e4e4e7;
+            --text-muted: #8b8d97;
+            --border: #2d3040;
+            --success: #4ade80;
+            --ai-blue: #60a5fa;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a0f2e 100%);
-            color: white;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Animated background stars */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ec4899;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        .star:nth-child(2n) {
-            background: #7c3aed;
-            animation-delay: 1s;
-        }
-
-        .star:nth-child(3n) {
-            background: #00ffff;
-            animation-delay: 2s;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 50px 20px;
+            line-height: 1.6;
         }
 
         /* Header */
         .header {
-            text-align: center;
-            margin-bottom: 50px;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
         }
 
-        .header h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, #7c3aed, #ec4899, #00ffff, #7c3aed);
-            background-size: 400%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
-            letter-spacing: -0.02em;
-            margin-bottom: 20px;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        @keyframes gradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .header .subtitle {
-            font-size: 1.5rem;
-            color: #ec4899;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .header .description {
-            color: #7c3aed;
+        .bws-logo {
             font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-glow);
+            border: 1px solid rgba(200, 164, 78, 0.3);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .ai-badge .pulse {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(74, 222, 128, 0); }
+        }
+
+        .site-name {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Layout */
+        .main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        /* Chat-style intro */
+        .chat-intro {
+            margin-bottom: 2.5rem;
+        }
+
+        .chat-bubble {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem 1rem 1rem 0.25rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            max-width: 90%;
+        }
+
+        .chat-bubble .avatar {
+            position: absolute;
+            left: -3rem;
+            top: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, var(--accent), #e8c96a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .chat-bubble h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .chat-bubble p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .chat-bubble .highlight {
+            color: var(--accent);
             font-weight: 500;
         }
 
-        /* Form Styles */
+        /* Form as chat response */
         .form-container {
-            background: rgba(15, 15, 26, 0.8);
-            border: 2px solid #7c3aed;
-            border-radius: 30px;
-            padding: 50px 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
             position: relative;
         }
 
         .form-container::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #7c3aed, #ec4899, #00ffff, #7c3aed);
-            background-size: 400%;
-            border-radius: 32px;
-            z-index: -1;
-            animation: gradient 3s ease-in-out infinite;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--ai-blue), var(--accent));
+            border-radius: 1rem 1rem 0 0;
+            opacity: 0.6;
         }
 
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            font-size: 1.2rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: #ec4899;
-            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
         }
 
         .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 15px 20px;
-            font-size: 1.1rem;
-            font-family: 'Arial', sans-serif;
-            background: rgba(124, 58, 237, 0.1);
-            border: 2px solid #7c3aed;
-            border-radius: 15px;
-            color: white;
-            transition: all 0.3s ease;
+            padding: 0.85rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s;
+            -webkit-appearance: none;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b8d97' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
         }
 
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: #ec4899;
-            background: rgba(236, 72, 153, 0.1);
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
-        }
-
-        .form-group select option {
-            background: #1a0f2e;
-            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
         .form-group textarea {
-            min-height: 120px;
+            min-height: 140px;
             resize: vertical;
+            line-height: 1.6;
         }
 
-        .form-group input[type="file"] {
-            background: rgba(124, 58, 237, 0.2);
-            cursor: pointer;
+        .form-group .hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            font-style: italic;
         }
 
-        .form-group input[type="file"]::-webkit-file-upload-button {
-            background: linear-gradient(45deg, #7c3aed, #ec4899);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-right: 15px;
+        /* Submit */
+        .submit-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
-        /* Priority badges */
-        .priority-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .priority-option {
-            position: relative;
-        }
-
-        .priority-option input[type="radio"] {
-            display: none;
-        }
-
-        .priority-option label {
-            display: block;
-            padding: 15px 20px;
-            background: rgba(124, 58, 237, 0.1);
-            border: 2px solid #7c3aed;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .priority-option input[type="radio"]:checked + label {
-            background: linear-gradient(45deg, #7c3aed, #ec4899);
-            border-color: #ec4899;
-            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
-        }
-
-        .priority-option label:hover {
-            border-color: #ec4899;
-            background: rgba(236, 72, 153, 0.1);
-        }
-
-        /* Gallery Upload Section */
-        .gallery-upload {
-            background: rgba(124, 58, 237, 0.1);
-            border: 2px solid #7c3aed;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .gallery-upload h3 {
-            color: #ec4899;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .gallery-upload p {
-            font-size: 1.1rem;
-            color: #7c3aed;
-            margin-bottom: 20px;
-        }
-
-        .gallery-link {
-            display: inline-block;
-            background: linear-gradient(45deg, #ec4899, #7c3aed);
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.4);
-        }
-
-        /* Submit Button */
         .submit-btn {
-            background: linear-gradient(45deg, #ec4899, #7c3aed);
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.5rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--bg);
+            background: linear-gradient(135deg, var(--accent), #e8c96a);
             border: none;
-            padding: 20px 50px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-radius: 25px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            width: 100%;
-            margin-top: 20px;
+            transition: all 0.3s;
+            letter-spacing: 0.02em;
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(200, 164, 78, 0.35);
         }
 
-        .submit-btn:active {
-            transform: translateY(0);
+        .submit-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
-        /* Back link */
-        .back-link {
-            text-align: center;
-            margin-top: 40px;
+        .submit-meta span {
+            color: var(--success);
+            font-weight: 500;
         }
 
-        .back-link a {
-            color: #7c3aed;
-            text-decoration: none;
-            font-size: 1.1rem;
+        /* Response time indicator */
+        .response-time {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: rgba(74, 222, 128, 0.06);
+            border: 1px solid rgba(74, 222, 128, 0.15);
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .response-time .icon {
+            font-size: 1.3rem;
+        }
+
+        .response-time .text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .response-time .text strong {
+            color: var(--success);
             font-weight: 600;
-            transition: color 0.3s ease;
         }
 
-        .back-link a:hover {
-            color: #ec4899;
+        /* How it works */
+        .how-it-works {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 15px;
-            }
-            
-            .form-container {
-                padding: 30px 25px;
-            }
-
-            .priority-options {
-                grid-template-columns: 1fr;
-            }
+        .how-it-works h3 {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 1.25rem 0.75rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .step .step-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step .step-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .step .step-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        /* Success state */
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .success-state.active { display: block; }
+
+        .success-check {
+            width: 64px;
+            height: 64px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            animation: scaleIn 0.4s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .success-state h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .success-state p {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-state .eta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(74, 222, 128, 0.08);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--success);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--accent); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .footer a { color: var(--text-muted); text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .chat-bubble .avatar { display: none; }
+            .chat-bubble { max-width: 100%; }
+            .steps { grid-template-columns: 1fr; }
+            .submit-row { flex-direction: column; text-align: center; }
+            .header { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
 
-    <div class="container">
-        <div class="header">
-            <h1>Request Changes</h1>
-            <div class="subtitle">Update Your Tatsu Website</div>
-            <div class="description">Need changes? We've got you covered!</div>
+    <header class="header">
+        <div class="header-left">
+            <a href="https://bayouwebstudio.com" class="bws-logo">BWS</a>
+            <div class="ai-badge">
+                <span class="pulse"></span>
+                Powered by AI
+            </div>
+        </div>
+        <span class="site-name">Tatsu Ink</span>
+    </header>
+
+    <main class="main">
+        <!-- Chat intro -->
+        <div class="chat-intro" style="padding-left: 3.5rem;">
+            <div class="chat-bubble">
+                <div class="avatar">🔷</div>
+                <h2>Need something changed?</h2>
+                <p>Describe what you'd like updated and our <span class="highlight">AI assistant</span> will process your request automatically. Most changes go live within <span class="highlight">30 minutes</span>.</p>
+            </div>
         </div>
 
-        <div class="form-container">
-            <form action="https://formsubmit.co/bayouwebstudio@gmail.com" method="POST" enctype="multipart/form-data">
-                <!-- Hidden Fields -->
-                <input type="hidden" name="_subject" value="Site Change Request — Tatsu Tattoos">
-                <input type="hidden" name="site_name" value="Tatsu Tattoos">
-                <input type="hidden" name="_next" value="https://tatsutattoos.com/index.html">
+        <!-- Form -->
+        <div class="form-container" id="form-container">
+            <form action="https://formsubmit.co/bayouwebstudio@gmail.com" method="POST" id="change-form">
+                <input type="hidden" name="_subject" value="🔷 Change Request — tatsuink.com">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="true">
+                <input type="hidden" name="_next" value="https://bayouwebstudio.com/tatsutattoos/changes.html?submitted=true">
+                <input type="hidden" name="site" value="tatsuink.com">
+                <input type="text" name="_honey" style="display:none">
 
-                <!-- Name Field -->
                 <div class="form-group">
-                    <label for="name">Your Name *</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Who's requesting this?">
                 </div>
 
-                <!-- What to Change Dropdown -->
                 <div class="form-group">
-                    <label for="change_type">What needs to change? *</label>
-                    <select id="change_type" name="change_type" required>
-                        <option value="">Select a change type</option>
-                        <option value="Update Gallery">Update Gallery</option>
-                        <option value="Change Text">Change Text</option>
-                        <option value="Update Contact Info">Update Contact Info</option>
-                        <option value="Update Hours">Update Hours</option>
-                        <option value="Add/Remove Services">Add/Remove Services</option>
-                        <option value="Other">Other</option>
+                    <label for="section">Section</label>
+                    <select id="section" name="section">
+                        <option value="">— Which part of the site? —</option>
+                                                <option value="Hero / Header">Hero / Header</option>
+                        <option value="About">About</option>
+                        <option value="Gallery">Gallery</option>
+                        <option value="Booking Info">Booking Info</option>
+                        <option value="Contact / Social">Contact / Social</option>
+                        <option value="General / Other">General / Other</option>
                     </select>
                 </div>
 
-                <!-- Description -->
                 <div class="form-group">
-                    <label for="description">Detailed Description *</label>
-                    <textarea id="description" name="description" placeholder="Please describe exactly what you'd like changed. Be as specific as possible!" required></textarea>
+                    <label for="change">What needs to change?</label>
+                    <textarea id="change" name="change_description" required placeholder="Describe the change — new text, updated info, add a photo, fix a link, etc."></textarea>
+                    <p class="hint">The more specific, the faster we can process it. Exact text or links help a lot.</p>
                 </div>
 
-                <!-- Upload Images -->
                 <div class="form-group">
-                    <label for="images">Upload Images (optional)</label>
-                    <input type="file" id="images" name="images" accept="image/*" multiple>
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="Normal">Normal — next 30 min</option>
+                        <option value="Soon">Soon — ASAP</option>
+                        <option value="Urgent">Urgent — right now</option>
+                    </select>
                 </div>
 
-                <!-- Gallery Upload Section -->
-                <div class="gallery-upload">
-                    <h3>📸 Update Gallery Photos</h3>
-                    <p>To update your tattoo portfolio gallery, upload new photos here:</p>
-                    <div class="gallery-link">[Gallery Upload Link Coming Soon]</div>
-                </div>
-
-                <!-- Priority -->
-                <div class="form-group">
-                    <label>Priority Level *</label>
-                    <div class="priority-options">
-                        <div class="priority-option">
-                            <input type="radio" id="no_rush" name="priority" value="No rush" required>
-                            <label for="no_rush">🐌 No Rush</label>
-                        </div>
-                        <div class="priority-option">
-                            <input type="radio" id="few_days" name="priority" value="Few days" required>
-                            <label for="few_days">⏰ Few Days</label>
-                        </div>
-                        <div class="priority-option">
-                            <input type="radio" id="asap" name="priority" value="ASAP" required>
-                            <label for="asap">🚀 ASAP</label>
-                        </div>
+                <div class="submit-row">
+                    <button type="submit" class="submit-btn">
+                        🔷 Submit Request
+                    </button>
+                    <div class="submit-meta">
+                        Avg. response: <span>~30 min</span>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <button type="submit" class="submit-btn">
-                    🚀 Submit Request
-                </button>
+                <div class="response-time">
+                    <span class="icon">⚡</span>
+                    <span class="text">Your request is processed by our <strong>AI assistant</strong> — no waiting in a queue. Changes are pushed live automatically.</span>
+                </div>
             </form>
         </div>
 
-        <div class="back-link">
-            <a href="index.html">← Back to Tatsu Website</a>
+        <!-- Success State -->
+        <div class="success-state" id="success-state">
+            <div class="success-check">✓</div>
+            <h2>Request Received</h2>
+            <p>Our AI assistant is processing your change.</p>
+            <p>You'll get an email when it's live.</p>
+            <div class="eta">⚡ Estimated: under 30 minutes</div>
+            <br>
+            <a href="/" class="back-link">← Back to site</a>
         </div>
-    </div>
+
+        <!-- How it works -->
+        <div class="how-it-works" id="how-section">
+            <h3>How it works</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">📝</div>
+                    <div class="step-title">You describe it</div>
+                    <div class="step-desc">Tell us what to change in plain language</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🤖</div>
+                    <div class="step-title">AI processes it</div>
+                    <div class="step-desc">Our assistant reads, edits, and pushes the update</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">✅</div>
+                    <div class="step-title">Live in minutes</div>
+                    <div class="step-desc">Changes go live and you get a confirmation</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="/" class="back-link" id="back-link">← Back to site</a>
+    </main>
+
+    <footer class="footer">
+        <a href="https://bayouwebstudio.com">Bayou Web Studios</a> · AI-Powered Web Design
+    </footer>
 
     <script>
-        // Create animated stars (same as main site)
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numberOfStars = 50;
-            
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
+        if (window.location.search.includes('submitted=true')) {
+            document.getElementById('form-container').style.display = 'none';
+            document.querySelector('.chat-intro').style.display = 'none';
+            document.getElementById('how-section').style.display = 'none';
+            document.getElementById('back-link').style.display = 'none';
+            document.getElementById('success-state').classList.add('active');
         }
-
-        // Initialize
-        createStars();
     </script>
 </body>
 </html>
