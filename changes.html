@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Changes - TATSU | Houston, TX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a0f2e 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ec4899;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star:nth-child(2n) {
+            background: #7c3aed;
+            animation-delay: 1s;
+        }
+
+        .star:nth-child(3n) {
+            background: #00ffff;
+            animation-delay: 2s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #7c3aed, #ec4899, #00ffff, #7c3aed);
+            background-size: 400%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            color: #ec4899;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header .description {
+            color: #7c3aed;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: rgba(15, 15, 26, 0.8);
+            border: 2px solid #7c3aed;
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #7c3aed, #ec4899, #00ffff, #7c3aed);
+            background-size: 400%;
+            border-radius: 32px;
+            z-index: -1;
+            animation: gradient 3s ease-in-out infinite;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ec4899;
+            margin-bottom: 10px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-family: 'Arial', sans-serif;
+            background: rgba(124, 58, 237, 0.1);
+            border: 2px solid #7c3aed;
+            border-radius: 15px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ec4899;
+            background: rgba(236, 72, 153, 0.1);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .form-group select option {
+            background: #1a0f2e;
+            color: white;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input[type="file"] {
+            background: rgba(124, 58, 237, 0.2);
+            cursor: pointer;
+        }
+
+        .form-group input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(45deg, #7c3aed, #ec4899);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        /* Priority badges */
+        .priority-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .priority-option {
+            position: relative;
+        }
+
+        .priority-option input[type="radio"] {
+            display: none;
+        }
+
+        .priority-option label {
+            display: block;
+            padding: 15px 20px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 2px solid #7c3aed;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .priority-option input[type="radio"]:checked + label {
+            background: linear-gradient(45deg, #7c3aed, #ec4899);
+            border-color: #ec4899;
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .priority-option label:hover {
+            border-color: #ec4899;
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        /* Gallery Upload Section */
+        .gallery-upload {
+            background: rgba(124, 58, 237, 0.1);
+            border: 2px solid #7c3aed;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .gallery-upload h3 {
+            color: #ec4899;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .gallery-upload p {
+            font-size: 1.1rem;
+            color: #7c3aed;
+            margin-bottom: 20px;
+        }
+
+        .gallery-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #ec4899, #7c3aed);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            background: linear-gradient(45deg, #ec4899, #7c3aed);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Back link */
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-link a {
+            color: #7c3aed;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #ec4899;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+            }
+            
+            .form-container {
+                padding: 30px 25px;
+            }
+
+            .priority-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Request Changes</h1>
+            <div class="subtitle">Update Your Tatsu Website</div>
+            <div class="description">Need changes? We've got you covered!</div>
+        </div>
+
+        <div class="form-container">
+            <form action="https://formsubmit.co/bayouwebstudio@gmail.com" method="POST" enctype="multipart/form-data">
+                <!-- Hidden Fields -->
+                <input type="hidden" name="_subject" value="Site Change Request — Tatsu Tattoos">
+                <input type="hidden" name="site_name" value="Tatsu Tattoos">
+                <input type="hidden" name="_next" value="https://tatsutattoos.com/index.html">
+
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <!-- What to Change Dropdown -->
+                <div class="form-group">
+                    <label for="change_type">What needs to change? *</label>
+                    <select id="change_type" name="change_type" required>
+                        <option value="">Select a change type</option>
+                        <option value="Update Gallery">Update Gallery</option>
+                        <option value="Change Text">Change Text</option>
+                        <option value="Update Contact Info">Update Contact Info</option>
+                        <option value="Update Hours">Update Hours</option>
+                        <option value="Add/Remove Services">Add/Remove Services</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Detailed Description *</label>
+                    <textarea id="description" name="description" placeholder="Please describe exactly what you'd like changed. Be as specific as possible!" required></textarea>
+                </div>
+
+                <!-- Upload Images -->
+                <div class="form-group">
+                    <label for="images">Upload Images (optional)</label>
+                    <input type="file" id="images" name="images" accept="image/*" multiple>
+                </div>
+
+                <!-- Gallery Upload Section -->
+                <div class="gallery-upload">
+                    <h3>📸 Update Gallery Photos</h3>
+                    <p>To update your tattoo portfolio gallery, upload new photos here:</p>
+                    <div class="gallery-link">[Gallery Upload Link Coming Soon]</div>
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <label>Priority Level *</label>
+                    <div class="priority-options">
+                        <div class="priority-option">
+                            <input type="radio" id="no_rush" name="priority" value="No rush" required>
+                            <label for="no_rush">🐌 No Rush</label>
+                        </div>
+                        <div class="priority-option">
+                            <input type="radio" id="few_days" name="priority" value="Few days" required>
+                            <label for="few_days">⏰ Few Days</label>
+                        </div>
+                        <div class="priority-option">
+                            <input type="radio" id="asap" name="priority" value="ASAP" required>
+                            <label for="asap">🚀 ASAP</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">
+                    🚀 Submit Request
+                </button>
+            </form>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Back to Tatsu Website</a>
+        </div>
+    </div>
+
+    <script>
+        // Create animated stars (same as main site)
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 50;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize
+        createStars();
+    </script>
+</body>
+</html>

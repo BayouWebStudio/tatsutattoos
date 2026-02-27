@@ -330,6 +330,33 @@
         footer p {
             color: #7c3aed;
             font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ec4899;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 5px 15px;
+            border-radius: 15px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            background: rgba(236, 72, 153, 0.2);
+            border-color: #ec4899;
+            color: white;
+            transform: translateY(-2px);
         }
 
         /* Mobile Responsive */
@@ -458,6 +485,10 @@
     <footer>
         <div class="container">
             <p>Website by Bayou Web Studios</p>
+            <div class="footer-links">
+                <a href="changes.html">Request Changes</a>
+                <a href="editor.html">Edit Your Site</a>
+            </div>
         </div>
     </footer>
 

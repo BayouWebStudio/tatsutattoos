@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BWS Visual Editor - Tattoo Temple Houston</title>
+    
+    <!-- Load the demo site styles -->
+    <style id="demo-styles"></style>
+    
+    <!-- Editor Styles -->
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body class="editor-active">
+    <!-- Editor Toolbar -->
+    <div class="editor-toolbar" id="editor-toolbar">
+        <div class="toolbar-left">
+            <div class="toolbar-logo">
+                <span class="logo-icon">🌊</span>
+                <span class="logo-text">BWS Site Editor</span>
+            </div>
+            <div class="toolbar-actions">
+                <button class="toolbar-btn" id="undo-btn" disabled>
+                    <span class="btn-icon">↶</span>
+                    Undo
+                </button>
+                <button class="toolbar-btn" id="redo-btn" disabled>
+                    <span class="btn-icon">↷</span>
+                    Redo
+                </button>
+            </div>
+        </div>
+        
+        <div class="toolbar-center">
+            <div class="site-info">
+                <span class="site-name">Tattoo Temple Houston</span>
+                <span class="site-status">Editing</span>
+            </div>
+        </div>
+        
+        <div class="toolbar-right">
+            <label class="books-toggle">
+                <input type="checkbox" id="books-toggle" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Books Open</span>
+            </label>
+            
+            <button class="toolbar-btn" id="theme-btn">
+                <span class="btn-icon">🎨</span>
+                Theme
+            </button>
+            
+            <button class="toolbar-btn" id="preview-btn">
+                <span class="btn-icon">👁</span>
+                Preview
+            </button>
+            
+            <button class="toolbar-btn primary" id="save-btn">
+                <span class="btn-icon">💾</span>
+                Save Changes
+            </button>
+            
+            <button class="toolbar-btn success" id="submit-btn">
+                <span class="btn-icon">🚀</span>
+                Submit to BWS
+            </button>
+        </div>
+    </div>
+
+    <!-- Side Panel -->
+    <div class="side-panel" id="side-panel">
+        <div class="panel-header">
+            <h3 id="panel-title">Panel</h3>
+            <button class="panel-close" id="panel-close">&times;</button>
+        </div>
+        <div class="panel-content" id="panel-content">
+            <!-- Dynamic content based on what's being edited -->
+        </div>
+    </div>
+
+    <!-- Overlay for side panel -->
+    <div class="panel-overlay" id="panel-overlay"></div>
+
+    <!-- Site Content Container -->
+    <div class="site-container" id="site-container">
+        <!-- Demo site content will be loaded here -->
+    </div>
+
+    <!-- Text Editing Toolbar -->
+    <div class="text-toolbar" id="text-toolbar">
+        <button class="text-btn" data-action="bold">
+            <span class="btn-icon">B</span>
+        </button>
+        <button class="text-btn" data-action="italic">
+            <span class="btn-icon">I</span>
+        </button>
+        <button class="text-btn" data-action="link">
+            <span class="btn-icon">🔗</span>
+        </button>
+        <button class="text-btn text-btn-done" id="text-done">
+            <span class="btn-icon">✓</span>
+        </button>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content success">
+            <div class="modal-header">
+                <h3>Changes Submitted! 🚀</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your site changes have been successfully submitted to Bayou Web Studios.</p>
+                <p><strong>What happens next:</strong></p>
+                <ul>
+                    <li>✅ Changes reviewed by BWS team</li>
+                    <li>🚀 Site updated within 24 hours</li>
+                    <li>📧 You'll receive confirmation email</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn primary" id="modal-close-btn">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Preview Modal -->
+    <div class="modal" id="save-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Changes Summary</h3>
+            </div>
+            <div class="modal-body">
+                <p>Review your changes:</p>
+                <div class="changes-preview" id="changes-preview">
+                    <!-- Changes will be listed here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" id="save-cancel">Cancel</button>
+                <button class="btn primary" id="save-confirm">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="editor.js"></script>
+</body>
+</html>
