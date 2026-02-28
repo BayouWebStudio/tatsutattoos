@@ -1,317 +1,247 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tatsutattoos - Tattoo Artist</title>
-    <meta name="description" content="Follow @tatsutattoos on Instagram Professional tattoo artist. Book your consultation today.">
-    <meta property="og:title" content="Tatsutattoos - Tattoo Artist">
-    <meta property="og:description" content="Follow @tatsutattoos on Instagram Professional tattoo artist. Book your consultation today.">
-    <meta property="og:url" content="https://bayouwebstudio.github.io/tatsutattoos">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tatsutattoos - Tattoo Artist">
-    <meta name="twitter:description" content="Follow @tatsutattoos on Instagram">
-    <link rel="canonical" href="https://bayouwebstudio.github.io/tatsutattoos">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
-    <style>
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-        
-        /* Header */
-        .hero {
-            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
-            padding: 4rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%);
-            z-index: -1;
-        }
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Gallery */
-        .gallery {
-            padding: 4rem 0;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            font-weight: 300;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .gallery-item {
-            position: relative;
-            aspect-ratio: 1;
-            overflow: hidden;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-        .gallery-coming-soon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.05);
-            color: rgba(255,255,255,0.7);
-            font-size: 1.2rem;
-            border: 2px dashed rgba(255,255,255,0.2);
-            border-radius: 12px;
-            aspect-ratio: 1;
-        }
-        
-        /* About */
-        .about {
-            padding: 4rem 0;
-            background: rgba(255,255,255,0.02);
-        }
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .about-content p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        
-        /* Contact */
-        .contact {
-            padding: 4rem 0;
-            text-align: center;
-        }
-        .contact-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        /* Floating action button */
-        .fab {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .fab:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            opacity: 0.5;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            cursor: pointer;
-            padding: 2rem;
-        }
-        .lightbox.active { display: flex; align-items: center; justify-content: center; }
-        .lightbox img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 12px;
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2rem;
-            color: white;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero { padding: 3rem 0; }
-            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
-            .contact-buttons { flex-direction: column; align-items: center; }
-            .fab { bottom: 1rem; right: 1rem; padding: 0.8rem 1.5rem; }
-        }
-    
-        .hero { background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 100%); }
-        .accent { color: #dc2626; }
-        .btn-primary { background: #dc2626; color: white; }
-        .btn-primary:hover { background: #b91c1c; }
-        .btn-secondary { border: 2px solid #dc2626; color: #dc2626; }
-        .btn-secondary:hover { background: #dc2626; color: white; }
-        .fab { background: #dc2626; color: white; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tatsu Ink | Anime &amp; Manga Tattoo Artist | Houston TX</title>
+  <meta name="description" content="Tatsu Ink — Houston TX tattoo artist specializing in anime, manga, and gaming tattoos. 7 years experience. First Place Scottsdale Art Fusion 2023. Book your tattoo today!" />
+  <meta property="og:title" content="Tatsu Ink | Anime &amp; Manga Tattoo Artist | Houston TX" />
+  <meta property="og:description" content="Houston's premier anime tattoo artist. Pikachu, Chopper, Vegeta, and more. Book now!" />
+  <meta property="og:image" content="img/profile.jpg" />
+  <meta property="og:url" content="https://tatsuink.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="3c5faa79-b116-4017-8b96-66ffed9209b9"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TattooParlor",
+    "name": "Tatsu Ink",
+    "description": "Anime and manga tattoo artist in Houston, TX",
+    "url": "https://tatsuink.com",
+    "image": "https://tatsuink.com/img/profile.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Katy",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    },
+    "sameAs": ["https://www.instagram.com/tatsu.tattoos/"],
+    "priceRange": "$100-$250 flash",
+    "award": "First Place - Scottsdale Art Fusion 2023"
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --purple: #9b59b6;
+      --pink: #e74c8c;
+      --white: #f0f0f0;
+      --muted: #888;
+      --card-bg: #1a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; background: rgba(13,13,13,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(155,89,182,0.2); }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; background: linear-gradient(135deg, var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 24px 60px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(155,89,182,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(231,76,140,0.12) 0%, transparent 60%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--purple); box-shadow: 0 0 30px rgba(155,89,182,0.5); margin-bottom: 24px; }
+    .hero-badge { display: inline-block; background: rgba(155,89,182,0.2); border: 1px solid rgba(155,89,182,0.4); color: var(--purple); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: 999px; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 900; line-height: 1.05; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-tagline { font-size: 1.15rem; color: var(--muted); margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; text-decoration: none; padding: 14px 36px; border-radius: 999px; font-weight: 700; font-size: 1rem; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 4px 24px rgba(231,76,140,0.35); }
+    .hero-cta:hover { opacity: 0.9; transform: translateY(-2px); }
+    section { padding: 80px 24px; }
+    .section-label { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+    .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 48px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .about-img { width: 100%; border-radius: 16px; object-fit: cover; aspect-ratio: 1; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+    .about-text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 16px; }
+    .about-text h2 span { background: linear-gradient(135deg, var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .about-text p { color: #bbb; margin-bottom: 24px; font-size: 1.05rem; }
+    .about-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+    .stat { background: var(--card-bg); border: 1px solid rgba(155,89,182,0.2); border-radius: 12px; padding: 14px 20px; text-align: center; flex: 1; min-width: 100px; }
+    .stat-num { font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    #gallery { background: var(--bg); }
+    .gallery-grid { columns: 3; column-gap: 12px; }
+    .gallery-item { break-inside: avoid; margin-bottom: 12px; cursor: pointer; overflow: hidden; border-radius: 10px; position: relative; }
+    .gallery-item img { width: 100%; display: block; transition: transform 0.4s ease; }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; background: rgba(155,89,182,0.0); transition: background 0.3s; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item:hover::after { background: rgba(155,89,182,0.25); }
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; cursor: pointer; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 8px; cursor: default; }
+    .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 2.5rem; color: #fff; cursor: pointer; line-height: 1; opacity: 0.7; }
+    .lightbox-close:hover { opacity: 1; }
+    #flash { background: var(--bg2); }
+    .flash-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .flash-price { font-size: clamp(3rem, 8vw, 5rem); font-weight: 900; background: linear-gradient(135deg, var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+    .flash-desc { color: #bbb; font-size: 1.1rem; margin: 16px 0 32px; }
+    .flash-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 36px; }
+    .tag { background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.3); color: var(--purple); padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
+    #book { background: linear-gradient(135deg, rgba(155,89,182,0.12), rgba(231,76,140,0.1)); text-align: center; }
+    #book .section-title { margin-bottom: 16px; }
+    #book p { color: #bbb; margin-bottom: 36px; font-size: 1.1rem; }
+    .btn-book { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; text-decoration: none; padding: 16px 44px; border-radius: 999px; font-weight: 700; font-size: 1.1rem; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 6px 30px rgba(231,76,140,0.35); }
+    .btn-book:hover { opacity: 0.9; transform: translateY(-2px); }
+    #contact { background: var(--bg); }
+    .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .contact-link { display: flex; align-items: center; gap: 10px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); color: var(--white); text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; transition: border-color 0.2s, background 0.2s; }
+    .contact-link:hover { border-color: var(--purple); background: rgba(155,89,182,0.1); }
+    .float-book { position: fixed; bottom: 24px; right: 24px; z-index: 200; background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; text-decoration: none; padding: 14px 22px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 24px rgba(231,76,140,0.5); transition: transform 0.2s, opacity 0.2s; display: flex; align-items: center; gap: 6px; }
+    .float-book:hover { transform: scale(1.05); opacity: 0.95; }
+    footer { background: var(--bg2); text-align: center; padding: 28px 24px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    footer p + p { margin-top: 6px; }
+    @media (max-width: 768px) { .nav-links { display: none; } .about-grid { grid-template-columns: 1fr; } .gallery-grid { columns: 2; } }
+    @media (max-width: 480px) { .gallery-grid { columns: 1; } }
+  </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="container">
-            <h1>Tatsutattoos</h1>
-            <p>Follow @tatsutattoos on Instagram</p>
-            <a href="#contact" class="btn btn-primary">Book Consultation</a>
-        </div>
-    </section>
+  <nav>
+    <a href="#" class="nav-logo">TATSU INK</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#flash">Flash</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" style="color: #e74c8c; font-weight: 700;">Book Now</a></li>
+    </ul>
+  </nav>
 
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <h2 class="section-title">My <span class="accent">Work</span></h2>
-            <div class="gallery-grid">
-                <div class="gallery-coming-soon">Gallery coming soon</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <h2 class="section-title">About <span class="accent">Me</span></h2>
-                <p>Follow @tatsutattoos on Instagram</p>
-                <p>Professional tattoo artist specializing in custom designs. Every piece is unique and crafted with precision and artistry.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Get <span class="accent">Inked</span></h2>
-            <p>Ready to bring your vision to life? Let's discuss your next tattoo.</p>
-            <div class="contact-buttons">
-                <a href="https://ig.me/m/tatsutattoos" class="btn btn-primary" target="_blank">Book Now</a>
-                <a href="https://instagram.com/tatsutattoos" class="btn btn-secondary" target="_blank">Follow on Instagram</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>Website by <a href="https://bayouwebstudio.com" target="_blank" style="color: #dc2626;">Bayou Web Studio</a></p>
-        </div>
-    </footer>
-
-    <a href="https://ig.me/m/tatsutattoos" class="fab" target="_blank">Book Now</a>
-
-    <div class="lightbox">
-        <div class="lightbox-close">&times;</div>
-        <img src="" alt="Gallery image">
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <img src="img/profile.jpg" alt="Tatsu - Anime Tattoo Artist" class="hero-avatar" />
+      <div class="hero-badge">Houston TX &middot; Katy Area</div>
+      <h1>Bringing <span>Anime</span><br />to Life on Skin</h1>
+      <p class="hero-tagline">7-year professional tattoo artist specializing in anime, manga &amp; gaming characters. Bold lines, vibrant color, forever art.</p>
+      <a href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" class="hero-cta">
+        &#10024; Book Your Tattoo
+      </a>
     </div>
+  </section>
 
-    <script>
-        // Lightbox functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const lightbox = document.querySelector('.lightbox');
-            const lightboxImg = lightbox.querySelector('img');
-            const lightboxClose = lightbox.querySelector('.lightbox-close');
-            const galleryItems = document.querySelectorAll('.gallery-item img');
-            
-            galleryItems.forEach(img => {
-                img.addEventListener('click', () => {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
-                });
-            });
-            
-            lightbox.addEventListener('click', () => {
-                lightbox.classList.remove('active');
-            });
-            
-            lightboxClose.addEventListener('click', (e) => {
-                e.stopPropagation();
-                lightbox.classList.remove('active');
-            });
-            
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-        });
-    </script>
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <img src="img/photo_01.jpg" alt="Tatsu ink tattoo work" class="about-img" />
+        <div class="about-text">
+          <p class="section-label">The Artist</p>
+          <h2>Where Anime Meets <span>Ink</span></h2>
+          <p>I'm Tatsu &mdash; a Houston-based tattoo artist with 7 years of professional experience and a deep love for anime, manga, and gaming culture. From One Piece to Pokemon, Dragon Ball to dark fantasy, I turn your favorite characters into permanent works of art.</p>
+          <p>Award-winning artist. First Place at the Scottsdale Art Fusion 2023 convention. Based in the Katy area, available for custom pieces and flash.</p>
+          <div class="about-stats">
+            <div class="stat"><div class="stat-num">7+</div><div class="stat-label">Years Pro</div></div>
+            <div class="stat"><div class="stat-num">&#127947;</div><div class="stat-label">Scottsdale 2023</div></div>
+            <div class="stat"><div class="stat-num">&#8734;</div><div class="stat-label">Anime Styles</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">The Work</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('img/photo_01.jpg')"><img src="img/photo_01.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_02.jpg')"><img src="img/photo_02.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_03.jpg')"><img src="img/photo_03.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_04.jpg')"><img src="img/photo_04.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_05.jpg')"><img src="img/photo_05.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_06.jpg')"><img src="img/photo_06.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_07.jpg')"><img src="img/photo_07.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_08.jpg')"><img src="img/photo_08.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_09.jpg')"><img src="img/photo_09.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_10.jpg')"><img src="img/photo_10.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_11.jpg')"><img src="img/photo_11.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+        <div class="gallery-item" onclick="openLightbox('img/photo_12.jpg')"><img src="img/photo_12.jpg" alt="Anime tattoo by Tatsu" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flash">
+    <div class="flash-inner">
+      <p class="section-label">Flash Available</p>
+      <h2 class="section-title">Ready-to-Book Designs</h2>
+      <div class="flash-price">$100&ndash;$250</div>
+      <p class="flash-desc">Color or black &amp; grey flash available &mdash; anime characters, icons, and original designs ready to go. Perfect if you want something awesome without the wait for a custom consult.</p>
+      <div class="flash-tags">
+        <span class="tag">&#9889; Color Flash</span>
+        <span class="tag">&#128420; Black &amp; Grey</span>
+        <span class="tag">&#127918; Gaming Chars</span>
+        <span class="tag">&#127800; Anime Icons</span>
+        <span class="tag">&#128128; Skulls</span>
+        <span class="tag">&#10024; Illustrative</span>
+      </div>
+      <a href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" class="btn-book">&#128197; Book Flash Appointment</a>
+    </div>
+  </section>
+
+  <section id="book">
+    <div class="container">
+      <p class="section-label">Appointments</p>
+      <h2 class="section-title">Ready for Your Tattoo?</h2>
+      <p>Custom pieces and flash &mdash; based in Katy, Houston TX. Book online in minutes.</p>
+      <a href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" class="btn-book">&#10024; Book Now</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Connect</p>
+      <h2 class="section-title">Find Tatsu</h2>
+      <div class="contact-links">
+        <a href="https://www.instagram.com/tatsu.tattoos/" target="_blank" class="contact-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          @tatsu.tattoos
+        </a>
+        <a href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" class="contact-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book Appointment
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <a href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" class="float-book">&#10024; Book Now</a>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="Tattoo fullscreen" onclick="event.stopPropagation()" />
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Tatsu Ink &middot; Houston TX &middot; Katy Area</p>
+    <p>#houstontattooartist #animetattoos #animetattooartist</p>
+    <p style="margin-top: 10px;"><a href="https://bayouwebstudio.com" target="_blank" style="color: inherit; text-decoration: none; opacity: 0.5; font-size: 12px;">Powered by BWS</a></p>
+  </footer>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 </body>
 </html>
