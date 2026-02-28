@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tatsuink.com/sitemap.xml
+Sitemap: https://bayouwebstudio.github.io/tatsutattoos/sitemap.xml
