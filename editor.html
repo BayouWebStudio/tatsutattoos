@@ -1,148 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BWS Visual Editor - Tattoo Temple Houston</title>
-    
-    <!-- Load the demo site styles -->
-    <style id="demo-styles"></style>
-    
-    <!-- Editor Styles -->
-    <link rel="stylesheet" href="editor.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BWS Site Editor — Tatsu Tattoos</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --border: rgba(255,255,255,0.1);
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --success: #22c55e;
+      --error: #ef4444;
+      --warn: #f59e0b;
+      --text: #f5f5f5;
+      --muted: #888;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+    }
+
+    .header-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .header-text p {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      max-width: 640px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    /* Section selector */
+    .section-tabs {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-tab {
+      padding: .45rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: .82rem;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: inherit;
+    }
+
+    .section-tab:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .section-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Drop zone */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      position: relative;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(59,130,246,.05);
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon {
+      font-size: 2.5rem;
+      margin-bottom: .75rem;
+    }
+
+    .drop-title {
+      font-size: .95rem;
+      font-weight: 500;
+      margin-bottom: .35rem;
+    }
+
+    .drop-sub {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .drop-limits {
+      margin-top: .75rem;
+      font-size: .73rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      border-radius: 6px;
+      padding: .35rem .75rem;
+      display: inline-block;
+    }
+
+    /* Preview */
+    .preview-area {
+      display: none;
+      margin-top: 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-area img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .preview-meta {
+      padding: .75rem 1rem;
+      font-size: .8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,.3);
+    }
+
+    .preview-clear {
+      background: none;
+      border: none;
+      color: var(--error);
+      cursor: pointer;
+      font-size: .8rem;
+      font-family: inherit;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      transition: background .2s;
+    }
+
+    .preview-clear:hover {
+      background: rgba(239,68,68,.1);
+    }
+
+    /* Upload button */
+    .upload-btn {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: .85rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: .95rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+
+    .upload-btn:hover { background: var(--accent-hover); }
+    .upload-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* Progress */
+    .progress-wrap {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .progress-bar-bg {
+      background: rgba(255,255,255,.1);
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      width: 0%;
+      transition: width .3s;
+    }
+
+    .progress-label {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: .4rem;
+      text-align: center;
+    }
+
+    /* Result */
+    .result-box {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: .88rem;
+    }
+
+    .result-box.success {
+      background: rgba(34,197,94,.1);
+      border: 1px solid rgba(34,197,94,.3);
+      color: var(--success);
+    }
+
+    .result-box.error {
+      background: rgba(239,68,68,.1);
+      border: 1px solid rgba(239,68,68,.3);
+      color: var(--error);
+    }
+
+    .result-url {
+      margin-top: .5rem;
+      font-size: .78rem;
+      word-break: break-all;
+      color: var(--muted);
+    }
+
+    .result-url a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .result-url a:hover { text-decoration: underline; }
+
+    /* History */
+    .history-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .6rem .75rem;
+      background: rgba(255,255,255,.03);
+      border-radius: 8px;
+      font-size: .8rem;
+    }
+
+    .history-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .history-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .history-name {
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .history-section {
+      color: var(--muted);
+      font-size: .72rem;
+    }
+
+    .history-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: .75rem;
+      flex-shrink: 0;
+    }
+
+    .empty-history {
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    /* Rate limit badge */
+    .rate-info {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .rate-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .rate-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+    }
+
+    .rate-dot.used {
+      background: var(--accent);
+    }
+
+    .rate-dot.limit {
+      background: var(--error);
+    }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+
+    .section-hint {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding: .5rem .75rem;
+      background: rgba(255,255,255,.04);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+  </style>
 </head>
-<body class="editor-active">
-    <!-- Editor Toolbar -->
-    <div class="editor-toolbar" id="editor-toolbar">
-        <div class="toolbar-left">
-            <div class="toolbar-logo">
-                <span class="logo-icon">🌊</span>
-                <span class="logo-text">BWS Site Editor</span>
-            </div>
-            <div class="toolbar-actions">
-                <button class="toolbar-btn" id="undo-btn" disabled>
-                    <span class="btn-icon">↶</span>
-                    Undo
-                </button>
-                <button class="toolbar-btn" id="redo-btn" disabled>
-                    <span class="btn-icon">↷</span>
-                    Redo
-                </button>
-            </div>
-        </div>
-        
-        <div class="toolbar-center">
-            <div class="site-info">
-                <span class="site-name">Tattoo Temple Houston</span>
-                <span class="site-status">Editing</span>
-            </div>
-        </div>
-        
-        <div class="toolbar-right">
-            <label class="books-toggle">
-                <input type="checkbox" id="books-toggle" checked>
-                <span class="toggle-slider"></span>
-                <span class="toggle-label">Books Open</span>
-            </label>
-            
-            <button class="toolbar-btn" id="theme-btn">
-                <span class="btn-icon">🎨</span>
-                Theme
-            </button>
-            
-            <button class="toolbar-btn" id="preview-btn">
-                <span class="btn-icon">👁</span>
-                Preview
-            </button>
-            
-            <button class="toolbar-btn primary" id="save-btn">
-                <span class="btn-icon">💾</span>
-                Save Changes
-            </button>
-            
-            <button class="toolbar-btn success" id="submit-btn">
-                <span class="btn-icon">🚀</span>
-                Submit to BWS
-            </button>
-        </div>
+<body>
+
+  <header>
+    <div class="logo">🌊</div>
+    <div class="header-text">
+      <h1>BWS Site Editor — Tatsu Tattoos</h1>
+      <p>Upload photos directly to your site. Changes go live within ~60 seconds.</p>
+    </div>
+  </header>
+
+  <!-- Upload Card -->
+  <div class="card">
+    <h2>📤 Upload Photo or Logo</h2>
+
+    <!-- Section tabs -->
+    <div class="section-tabs">
+      <button class="section-tab active" data-section="gallery">Gallery Photo</button>
+      <button class="section-tab" data-section="hero">Hero / Banner</button>
+      <button class="section-tab" data-section="logo">Logo</button>
     </div>
 
-    <!-- Side Panel -->
-    <div class="side-panel" id="side-panel">
-        <div class="panel-header">
-            <h3 id="panel-title">Panel</h3>
-            <button class="panel-close" id="panel-close">&times;</button>
-        </div>
-        <div class="panel-content" id="panel-content">
-            <!-- Dynamic content based on what's being edited -->
-        </div>
+    <div class="section-hint" id="section-hint">
+      Added to your gallery grid — great for portfolio shots.
     </div>
 
-    <!-- Overlay for side panel -->
-    <div class="panel-overlay" id="panel-overlay"></div>
-
-    <!-- Site Content Container -->
-    <div class="site-container" id="site-container">
-        <!-- Demo site content will be loaded here -->
+    <!-- Drop zone -->
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.gif,.webp,.svg">
+      <div class="drop-icon">🖼️</div>
+      <div class="drop-title">Drop your photo here, or click to browse</div>
+      <div class="drop-sub">Your file uploads directly to your site</div>
+      <div class="drop-limits">📎 Max 10 uploads per hour &nbsp;·&nbsp; 25MB per file &nbsp;·&nbsp; JPG, PNG, GIF, WebP, SVG</div>
     </div>
 
-    <!-- Text Editing Toolbar -->
-    <div class="text-toolbar" id="text-toolbar">
-        <button class="text-btn" data-action="bold">
-            <span class="btn-icon">B</span>
-        </button>
-        <button class="text-btn" data-action="italic">
-            <span class="btn-icon">I</span>
-        </button>
-        <button class="text-btn" data-action="link">
-            <span class="btn-icon">🔗</span>
-        </button>
-        <button class="text-btn text-btn-done" id="text-done">
-            <span class="btn-icon">✓</span>
-        </button>
+    <!-- Preview -->
+    <div class="preview-area" id="preview-area">
+      <img id="preview-img" src="" alt="Preview">
+      <div class="preview-meta">
+        <span id="preview-filename">—</span>
+        <button class="preview-clear" id="preview-clear">✕ Remove</button>
+      </div>
     </div>
 
-    <!-- Success Modal -->
-    <div class="modal" id="success-modal">
-        <div class="modal-content success">
-            <div class="modal-header">
-                <h3>Changes Submitted! 🚀</h3>
-            </div>
-            <div class="modal-body">
-                <p>Your site changes have been successfully submitted to Bayou Web Studios.</p>
-                <p><strong>What happens next:</strong></p>
-                <ul>
-                    <li>✅ Changes reviewed by BWS team</li>
-                    <li>🚀 Site updated within 24 hours</li>
-                    <li>📧 You'll receive confirmation email</li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button class="btn primary" id="modal-close-btn">Got it!</button>
-            </div>
-        </div>
+    <!-- Upload button -->
+    <button class="upload-btn" id="upload-btn">
+      <span id="btn-label">⬆ Upload to Site</span>
+    </button>
+
+    <!-- Progress -->
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label">Uploading…</div>
     </div>
 
-    <!-- Save Preview Modal -->
-    <div class="modal" id="save-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Changes Summary</h3>
-            </div>
-            <div class="modal-body">
-                <p>Review your changes:</p>
-                <div class="changes-preview" id="changes-preview">
-                    <!-- Changes will be listed here -->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn secondary" id="save-cancel">Cancel</button>
-                <button class="btn primary" id="save-confirm">Save Changes</button>
-            </div>
-        </div>
-    </div>
+    <!-- Result -->
+    <div class="result-box" id="result-box"></div>
 
-    <!-- Scripts -->
-    <script src="editor.js"></script>
+    <!-- Rate limit tracker -->
+    <div class="rate-info" id="rate-info" style="display:none;">
+      <div class="rate-dots" id="rate-dots"></div>
+      <span id="rate-label">0 / 10 uploads this hour</span>
+    </div>
+  </div>
+
+  <!-- History Card -->
+  <div class="card">
+    <h2>🗂 Recent Uploads</h2>
+    <ul class="history-list" id="history-list">
+      <li class="empty-history">No uploads yet this session.</li>
+    </ul>
+  </div>
+
+<script>
+  // ── Config (per-client, set by BWS) ───────────────────────────────
+  const CONFIG = {
+    client:     "tatsutattoos",
+    secret:     "J85GVF_7_bwbsyUUttXiXQ",
+    uploadUrl:  "http://localhost:5050/api/upload",   // e.g. http://localhost:5050/api/upload
+    clientName: "Tatsu Tattoos",
+  };
+
+  // ── State ──────────────────────────────────────────────────────────
+  let selectedFile = null;
+  let selectedSection = "gallery";
+  let uploadsThisHour = 0;
+  const history = [];
+
+  const SECTION_HINTS = {
+    gallery: "Added to your gallery grid — great for portfolio shots.",
+    hero:    "Replaces the main banner image at the top of your site.",
+    logo:    "Replaces your site logo everywhere it appears.",
+  };
+
+  // ── Elements ───────────────────────────────────────────────────────
+  const dropZone     = document.getElementById("drop-zone");
+  const fileInput    = document.getElementById("file-input");
+  const previewArea  = document.getElementById("preview-area");
+  const previewImg   = document.getElementById("preview-img");
+  const previewName  = document.getElementById("preview-filename");
+  const previewClear = document.getElementById("preview-clear");
+  const uploadBtn    = document.getElementById("upload-btn");
+  const btnLabel     = document.getElementById("btn-label");
+  const progressWrap = document.getElementById("progress-wrap");
+  const progressFill = document.getElementById("progress-fill");
+  const progressLbl  = document.getElementById("progress-label");
+  const resultBox    = document.getElementById("result-box");
+  const rateInfo     = document.getElementById("rate-info");
+  const rateDots     = document.getElementById("rate-dots");
+  const rateLabel    = document.getElementById("rate-label");
+  const sectionHint  = document.getElementById("section-hint");
+  const historyList  = document.getElementById("history-list");
+
+  // ── Section tabs ───────────────────────────────────────────────────
+  document.querySelectorAll(".section-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".section-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedSection = btn.dataset.section;
+      sectionHint.textContent = SECTION_HINTS[selectedSection] || "";
+    });
+  });
+
+  // ── File selection ─────────────────────────────────────────────────
+  function handleFile(file) {
+    if (!file) return;
+
+    const ext = file.name.split(".").pop().toLowerCase();
+    const allowed = ["jpg","jpeg","png","gif","webp","svg"];
+    if (!allowed.includes(ext)) {
+      showResult("error", `File type .${ext} isn't supported. Use JPG, PNG, GIF, WebP, or SVG.`);
+      return;
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      showResult("error", "That file is over 25MB. Please resize it and try again.");
+      return;
+    }
+
+    selectedFile = file;
+    const url = URL.createObjectURL(file);
+    previewImg.src = url;
+    previewName.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+    previewArea.style.display = "block";
+    uploadBtn.style.display   = "flex";
+    resultBox.style.display   = "none";
+  }
+
+  fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
+
+  dropZone.addEventListener("dragover", e => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+  });
+  dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+  dropZone.addEventListener("drop", e => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    handleFile(e.dataTransfer.files[0]);
+  });
+
+  previewClear.addEventListener("click", () => {
+    selectedFile = null;
+    fileInput.value = "";
+    previewArea.style.display = "none";
+    uploadBtn.style.display   = "none";
+    resultBox.style.display   = "none";
+  });
+
+  // ── Upload ─────────────────────────────────────────────────────────
+  uploadBtn.addEventListener("click", async () => {
+    if (!selectedFile) return;
+
+    uploadBtn.disabled      = true;
+    btnLabel.innerHTML      = '<div class="spinner"></div> Uploading…';
+    progressWrap.style.display = "block";
+    progressFill.style.width   = "0%";
+    progressLbl.textContent    = "Connecting…";
+    resultBox.style.display    = "none";
+
+    // Simulate progress while fetch runs
+    let fakeProgress = 0;
+    const ticker = setInterval(() => {
+      fakeProgress = Math.min(fakeProgress + Math.random() * 12, 85);
+      progressFill.style.width = fakeProgress + "%";
+      progressLbl.textContent  = fakeProgress < 40 ? "Uploading…"
+                               : fakeProgress < 70 ? "Processing…"
+                               : "Almost there…";
+    }, 300);
+
+    const fd = new FormData();
+    fd.append("client",  CONFIG.client);
+    fd.append("secret",  CONFIG.secret);
+    fd.append("section", selectedSection);
+    fd.append("file",    selectedFile);
+
+    try {
+      const res  = await fetch(CONFIG.uploadUrl, { method: "POST", body: fd });
+      const data = await res.json();
+
+      clearInterval(ticker);
+      progressFill.style.width = "100%";
+      progressLbl.textContent  = "Done!";
+
+      setTimeout(() => { progressWrap.style.display = "none"; }, 800);
+
+      if (data.success) {
+        uploadsThisHour = data.uploads_this_hour || uploadsThisHour + 1;
+        updateRateDisplay();
+
+        showResult("success",
+          `✅ Uploaded! Your ${selectedSection} is live on your site.` +
+          `<div class="result-url">🔗 <a href="${data.url}" target="_blank">${data.url}</a></div>`
+        );
+
+        addToHistory(selectedFile, selectedSection, data.url);
+
+        // Reset
+        selectedFile = null;
+        fileInput.value = "";
+        previewArea.style.display = "none";
+        uploadBtn.style.display   = "none";
+      } else {
+        showResult("error", `❌ ${data.error || "Upload failed. Please try again."}`);
+      }
+    } catch (err) {
+      clearInterval(ticker);
+      progressWrap.style.display = "none";
+      showResult("error", "❌ Could not reach the upload server. Make sure you're connected to the internet.");
+      console.error(err);
+    }
+
+    uploadBtn.disabled = false;
+    btnLabel.innerHTML = "⬆ Upload to Site";
+  });
+
+  // ── Helpers ────────────────────────────────────────────────────────
+  function showResult(type, html) {
+    resultBox.className    = `result-box ${type}`;
+    resultBox.innerHTML    = html;
+    resultBox.style.display = "block";
+    resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function updateRateDisplay() {
+    rateInfo.style.display = "flex";
+    const used = uploadsThisHour;
+    const max  = 10;
+    rateDots.innerHTML = Array.from({ length: max }, (_, i) =>
+      `<div class="rate-dot ${i < used ? (used >= max ? "limit" : "used") : ""}"></div>`
+    ).join("");
+    rateLabel.textContent = `${used} / ${max} uploads this hour`;
+  }
+
+  function addToHistory(file, section, url) {
+    const item = { file, section, url, thumb: URL.createObjectURL(file) };
+    history.unshift(item);
+
+    if (history.length === 1) historyList.innerHTML = "";
+
+    const li = document.createElement("li");
+    li.className = "history-item";
+    li.innerHTML = `
+      <img class="history-thumb" src="${item.thumb}" alt="">
+      <div class="history-meta">
+        <div class="history-name">${file.name}</div>
+        <div class="history-section">${section} · ${(file.size/1024/1024).toFixed(2)} MB</div>
+      </div>
+      <a class="history-link" href="${url}" target="_blank">View →</a>
+    `;
+    historyList.prepend(li);
+  }
+</script>
+
 </body>
 </html>
