@@ -33,6 +33,36 @@
         <textarea name="additional_notes" placeholder="Any additional notes" rows="2"></textarea>
         <input type="hidden" name="_next" value="https://bayouwebstudio.com/thanks">
         <button type="submit">Submit Request</button>
-    </form>
+    
+    <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid #333">
+      <h3 style="margin-bottom:0.5rem;color:#fff">📷 Upload Photos to Your Gallery</h3>
+      <p style="color:#aaa;font-size:0.9rem;margin-bottom:1rem">JPG or PNG only &middot; Max 20MB per photo &middot; Up to 10 photos at once &middot; Live on your site within 2 minutes</p>
+      <input type="file" id="uploadFiles" accept=".jpg,.jpeg,.png" multiple style="margin-bottom:1rem;display:block;color:#fff">
+      <button type="button" id="uploadBtn" style="background:#fff;color:#111;border:none;padding:0.75rem 1.5rem;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:600">Upload Photos</button>
+      <div id="uploadStatus" style="margin-top:1rem;font-size:0.9rem"></div>
+    </div>
+    <script>
+    const CLIENT_KEY="tatsutattoos",CLIENT_SECRET="J85GVF_7_bwbsyUUttXiXQ",CLIENT_EMAIL="tatsu@tatsuink.com",CLIENT_NAME="Tatsu";
+    document.getElementById("uploadBtn").addEventListener("click",async function(){
+      const files=document.getElementById("uploadFiles").files;
+      const status=document.getElementById("uploadStatus");
+      if(!files.length){status.textContent="Please select at least one photo.";return;}
+      if(files.length>10){status.textContent="Max 10 photos at once.";return;}
+      status.innerHTML="<span style='color:#aaa'>Uploading... please wait</span>";
+      this.disabled=true;
+      const fd=new FormData();
+      fd.append("client",CLIENT_KEY);fd.append("secret",CLIENT_SECRET);
+      fd.append("email",CLIENT_EMAIL);fd.append("name",CLIENT_NAME);
+      for(const f of files) fd.append("files",f);
+      try{
+        const r=await fetch("http://localhost:5050/api/upload",{method:"POST",body:fd});
+        const d=await r.json();
+        if(d.success){status.innerHTML="<span style='color:#4ade80'>✅ "+d.message+"</span>";}
+        else{status.innerHTML="<span style='color:#f87171'>❌ "+(d.error||d.message)+"</span>";}
+      }catch(e){status.innerHTML="<span style='color:#f87171'>❌ Upload failed. Email support@bayouwebstudio.com</span>";}
+      this.disabled=false;
+    });
+    </script>
+</form>
 </body>
 </html>
