@@ -55,7 +55,7 @@
       fd.append("email",CLIENT_EMAIL);fd.append("name",CLIENT_NAME);
       for(const f of files) fd.append("files",f);
       try{
-        const r=await fetch("http://localhost:5050/api/upload",{method:"POST",body:fd});
+        const r=await fetch("https://api.bayouwebstudio.com/api/upload",{method:"POST",body:fd});
         const d=await r.json();
         if(d.success){status.innerHTML="<span style='color:#4ade80'>✅ "+d.message+"</span>";}
         else{status.innerHTML="<span style='color:#f87171'>❌ "+(d.error||d.message)+"</span>";}
