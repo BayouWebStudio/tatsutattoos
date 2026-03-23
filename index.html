@@ -108,6 +108,17 @@
     @keyframes pulseAnim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
     @media(max-width:768px){nav{padding:0.75rem 1.25rem}.nav-links{display:none}.about-grid{grid-template-columns:1fr}.gallery-grid{columns:2}.creds-inner{gap:0.75rem 1.5rem}.sep{display:none}.float-btn{bottom:1.25rem;right:1.25rem;padding:0.75rem 1.25rem;font-size:0.85rem}}
     @media(max-width:480px){.gallery-grid{columns:2}.hero-title{font-size:3rem}}
+      /* === LIGHTBOX === */
+    .lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.97);align-items:center;justify-content:center}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:96vw;max-height:96vh;object-fit:contain;user-select:none;-webkit-user-select:none;pointer-events:none}
+    .lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);border-radius:50%;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;-webkit-tap-highlight-color:transparent;transition:border-color 0.3s}
+    .lb-close:hover{border-color:var(--accent,#C9A84C);color:var(--accent,#C9A84C)}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);border-radius:50%;color:#fff;width:48px;height:48px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;-webkit-tap-highlight-color:transparent;transition:all 0.3s}
+    .lb-nav:hover{border-color:var(--accent,#C9A84C);color:var(--accent,#C9A84C)}
+    .lb-prev{left:12px}
+    .lb-next{right:12px}
+    @media(max-width:600px){.lb-nav{width:40px;height:40px;font-size:20px}.lb-prev{left:8px}.lb-next{right:8px}.lb-close{top:12px;right:12px;width:40px;height:40px}}
   </style>
 </head>
 <body>
@@ -231,14 +242,6 @@
 <a class="float-btn" href="https://venue.ink/@tatsutattoos/book/buk-8iaoDPo7040" target="_blank" rel="noopener">
   <span class="pulse"></span> Book Now
 </a>
-
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lbClose">&#10005;</button>
-  <button class="lightbox-prev" id="lbPrev">&#8249;</button>
-  <img class="lightbox-img" id="lbImg" src="" alt="Anime tattoo by Tatsu Houston TX">
-  <button class="lightbox-next" id="lbNext">&#8250;</button>
-</div>
-
 <script>
 const images=["tatsu_01.jpg","tatsu_02.jpg","tatsu_03.jpg","tatsu_04.jpg","tatsu_05.jpg","tatsu_06.jpg"];
 const grid=document.getElementById('galleryGrid');
