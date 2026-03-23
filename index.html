@@ -264,5 +264,31 @@ lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('active'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')nav(-1);if(e.key==='ArrowRight')nav(1)});
 </script>
   <script src="https://getminted.ai/mint-widget.js"></script>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLB()">&times;</button>
+    <button class="lb-nav lb-prev" onclick="navLB(-1)">&#8249;</button>
+    <img id="lb-img" src="" alt="Gallery image">
+    <button class="lb-nav lb-next" onclick="navLB(1)">&#8250;</button>
+  </div>
+<script>
+(function(){
+  var items=Array.from(document.querySelectorAll('.gallery-item'));
+  var lb=document.getElementById('lightbox');
+  if(!lb||!items.length)return;
+  var lbImg=document.getElementById('lb-img'),idx=0;
+  items.forEach(function(el,i){
+    el.style.cursor='pointer';
+    el.addEventListener('click',function(e){e.preventDefault();idx=i;var img=el.querySelector('img');if(img)lbImg.src=img.src;lb.classList.add('active');document.body.style.overflow='hidden'});
+  });
+  window.closeLB=function(){lb.classList.remove('active');document.body.style.overflow=''};
+  window.navLB=function(d){idx=(idx+d+items.length)%items.length;var img=items[idx].querySelector('img');if(img)lbImg.src=img.src};
+  lb.addEventListener('click',function(e){if(e.target===lb)closeLB()});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('active'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')navLB(-1);if(e.key==='ArrowRight')navLB(1)});
+  var tx=0;
+  lb.addEventListener('touchstart',function(e){tx=e.changedTouches[0].screenX},{passive:true});
+  lb.addEventListener('touchend',function(e){var d=tx-e.changedTouches[0].screenX;if(Math.abs(d)>50)navLB(d>0?1:-1)},{passive:true});
+})();
+</script>
 </body>
 </html>
