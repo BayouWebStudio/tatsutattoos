@@ -290,5 +290,16 @@ document.addEventListener('keydown',e=>{if(!lb.classList.contains('active'))retu
   lb.addEventListener('touchend',function(e){var d=tx-e.changedTouches[0].screenX;if(Math.abs(d)>50)navLB(d>0?1:-1)},{passive:true});
 })();
 </script>
+<script>
+(function(){
+  try {
+    fetch('https://curious-lemming-262.convex.site/api/analytics/pageview', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ slug: 'tatsuink', page: window.location.pathname })
+    }).catch(function(){});
+  } catch(e) {}
+})();
+</script>
 </body>
 </html>
